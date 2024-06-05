@@ -1,12 +1,10 @@
 const { Model } = require('../services/models');
-const  getdata  = require('../services/frs');
-
-
+const { getdata, uploadData } = require('../services/frs');
+const crypto = require('crypto');
 
 const findModel = (plant, myModels) => {
   return myModels.find((model) => model.name.toLowerCase() === plant.trim().toLowerCase());
 };
-
 
 // Define the handler for the predict route
 const predictHandler = async (request, h, myModels) => {
@@ -31,6 +29,8 @@ const predictHandler = async (request, h, myModels) => {
 
   const { model, labels } = myModel;
   const imgBuffer = image._data;
+  const id = crypto.randomUUID();
+  const createdAt = new Date().toISOString();
 
   const result = await Model.predictImage(imgBuffer, model, plant, labels);
 
@@ -43,11 +43,21 @@ const predictHandler = async (request, h, myModels) => {
     return h.response({ message: 'Prediction label is undefined or not valid' }).code(500);
   }
 
+  const userId = '58Ahtrd7sWMIslHi2Hrj';
+  const pathToStore = `users/${userId}/history/${id}`;
   const pathto = `buah/${plant}/${result.label}`;
   console.log('Firestore path:', pathto);
 
   // Retrieve data from Firestore
-  return await getdata(pathto, h, result.confidence);
+  const dataResponse = await getdata(pathto, h, result.confidence, id, createdAt);
+
+  // Extract the data from the response to store it
+  const responseData = dataResponse.source;
+  
+  // Upload the prediction result to Firestore
+  await uploadData(pathToStore, responseData);
+
+  return dataResponse;
 };
 
 const rootHandler = (request, h) => {
