@@ -60,11 +60,6 @@ const predictHandler = async (request, h, myModels) => {
   return dataResponse;
 };
 
-const rootHandler = (request, h) => {
-  return 'Hello, I\'m Zain!';
-};
-
 module.exports = {
   predictHandler,
-  rootHandler,
 };
