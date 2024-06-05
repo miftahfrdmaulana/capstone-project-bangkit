@@ -1,2 +1,2 @@
 # capstone-project-bangkit
-Capstone Bangkit 2024 CC
+Capstone Bangkit 2024 
