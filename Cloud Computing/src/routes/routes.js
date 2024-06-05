@@ -1,4 +1,4 @@
-const { predictHandler, rootHandler } = require('../handlers/modelHandler');
+const { predictHandler } = require('../handlers/modelHandler');
 const { signin, signup, signout, getUserProfile } = require('../handlers/authHandler')
 const { getHistory, getHistoryDetailsId } = require('../handlers/fetchHistoryHandler')
 
