@@ -39,7 +39,6 @@ async function getHistoryDetailsId (req, h) {
     const idParam = req.params.id;
 
     try {
-        const pathToStore = `users/${userId}/history/${id}`;
         const docRef = db.collection('users').doc(userId).collection('history').doc(idParam);
         const doc = await docRef.get();
 
