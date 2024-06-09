@@ -22,7 +22,7 @@ async function getHistory (req, h) {
             return h.response('No file').code(404);
         } else {
             return h.response(historyData).code(200);
-        }
+        }   
 
     } catch (error) {
         console.error('Error getting history data:', error);
@@ -39,6 +39,7 @@ async function getHistoryDetailsId (req, h) {
     const idParam = req.params.id;
 
     try {
+        const pathToStore = `users/${userId}/history/${id}`;
         const docRef = db.collection('users').doc(userId).collection('history').doc(idParam);
         const doc = await docRef.get();
 

@@ -2,6 +2,7 @@ const { Model } = require('../services/models');
 const { getdata, uploadData } = require('../services/frs');
 const crypto = require('crypto');
 
+// Function to find model
 const findModel = (plant, myModels) => {
   return myModels.find((model) => model.name.toLowerCase() === plant.trim().toLowerCase());
 };
@@ -43,9 +44,14 @@ const predictHandler = async (request, h, myModels) => {
     return h.response({ message: 'Prediction label is undefined or not valid' }).code(500);
   }
 
-  const userId = '58Ahtrd7sWMIslHi2Hrj';
+  const userId = request.auth.credentials.user.id;
   const pathToStore = `users/${userId}/history/${id}`;
-  const pathto = `buah/${plant}/${result.label}`;
+  let pathto;
+  if (['apple', 'mango', 'grape'].includes(plant.toLowerCase())) {
+    pathto = `buah/${plant}/${result.label}`;
+  } else {
+    pathto = `sayur/${plant}/${result.label}`;
+  }
   console.log('Firestore path:', pathto);
 
   // Retrieve data from Firestore
@@ -53,7 +59,7 @@ const predictHandler = async (request, h, myModels) => {
 
   // Extract the data from the response to store it
   const responseData = dataResponse.source;
-  
+
   // Upload the prediction result to Firestore
   await uploadData(pathToStore, responseData);
 

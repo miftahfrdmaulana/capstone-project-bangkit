@@ -1,3 +1,5 @@
 /node_modules
 /src/services/models.json
 /src/services/keyfile.json
+testConnection.js
+.env
