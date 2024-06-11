@@ -1,6 +1,7 @@
 const { predictHandler } = require('../handlers/modelHandler');
 const { signin, signup, signout, getUserProfile } = require('../handlers/authHandler');
 const { getHistory, getHistoryDetailsId } = require('../handlers/fetchHistoryHandler');
+const { getInfoBuah, getInfoSayur } = require('../handlers/getFruitsVeggiesInfoHandler');
 
 const routes = (server, myModels) => {
     server.route({
@@ -10,10 +11,29 @@ const routes = (server, myModels) => {
             return 'Hello';
         },
         options: {
-            auth: false
+            auth: 'session'
         }
     });
 
+    // get Info Buah dan Sayur:
+    server.route({
+        method: 'GET',
+        path: '/home/buah/{item}/{penyakit}',
+        handler: getInfoBuah,
+        options: {
+            auth: 'session'
+        }
+    }};
+
+    server.route({
+        method: 'GET',
+        path: '/home/sayur/{item}/{penyakit}',
+        handler: getInfoSayur,
+        options: {
+            auth: 'session'
+        }
+    }};
+    
     // SignIn and SignUp Routes:
     server.route({
         method: 'POST',
