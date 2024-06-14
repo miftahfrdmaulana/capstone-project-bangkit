@@ -1,3 +1,4 @@
+// route.js
 const { predictHandler } = require('../handlers/modelHandler');
 const { signin, signup, signout, getUserProfile } = require('../handlers/authHandler');
 const { getHistory, getHistoryDetailsId } = require('../handlers/fetchHistoryHandler');
@@ -23,7 +24,7 @@ const routes = (server, myModels) => {
         options: {
             auth: 'session'
         }
-    }};
+    });
 
     server.route({
         method: 'GET',
@@ -32,7 +33,7 @@ const routes = (server, myModels) => {
         options: {
             auth: 'session'
         }
-    }};
+    });
     
     // SignIn and SignUp Routes:
     server.route({

@@ -40,6 +40,7 @@ async function signin(request, h) {
             return h.response({ status: 'fail', message: 'Invalid Password' }).code(401);
         }
 
+        // Set the session cookie
         request.cookieAuth.set({ id: user.id });
 
         return h.response({ status: 'success', message: 'Authentication successful' }).code(200);
