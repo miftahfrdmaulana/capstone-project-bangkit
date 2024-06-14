@@ -2,5 +2,4 @@
 /src/services/models.json
 /src/services/keyfile.json
 testConnection.js
-/src/loadSecret.js
 .env
