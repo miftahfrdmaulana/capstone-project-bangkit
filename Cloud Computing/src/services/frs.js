@@ -1,6 +1,9 @@
 const Firestore = require('@google-cloud/firestore');
 
-const db = new Firestore();
+const db = new Firestore({
+  projectId: 'testing-capstone-2',
+  keyFilename: 'src/services/keyfile.json',
+});
 
 // Get data from Firestore
 async function getdata(pathto, h, confidence, id, createdAt) {
