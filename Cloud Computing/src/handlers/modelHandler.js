@@ -11,6 +11,7 @@ const findModel = (plant, myModels) => {
 const predictHandler = async (request, h, myModels) => {
 	const { plant } = request.params;
 	const { image } = request.payload;
+	const threshold = process.env.THRESHOLD || 0.7;
 
 	const myModel = findModel(plant, myModels);
 	if (!myModel) {
@@ -42,6 +43,12 @@ const predictHandler = async (request, h, myModels) => {
 	if (!result.label || !labels.includes(result.label)) {
 		console.error("Prediction label is undefined or not valid");
 		return h.response({ message: "Prediction label is undefined or not valid" }).code(500);
+	}
+
+	// Check if the confidence is above the threshold
+	if (result.confidence < threshold) {
+		console.error("Confidence is below threshold");
+		return h.response({ message: "This plant disease is not yet included in our database" }).code(400);
 	}
 
 	const userId = request.auth.credentials.user.id;
