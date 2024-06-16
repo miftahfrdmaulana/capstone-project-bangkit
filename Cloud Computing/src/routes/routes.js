@@ -106,3 +106,4 @@ const routes = (server, myModels) => {
 };
 
 module.exports = routes;
+

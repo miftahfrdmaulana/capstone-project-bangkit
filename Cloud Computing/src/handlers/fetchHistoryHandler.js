@@ -54,3 +54,5 @@ async function getHistoryDetailsId(req, h) {
 }
 
 module.exports = { getHistory, getHistoryDetailsId };
+
+

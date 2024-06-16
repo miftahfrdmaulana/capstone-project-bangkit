@@ -1,4 +1,4 @@
-const loadSecrets = require('../loadSecrets.js');
+const loadSecrets = require('../../../../../alot/loadSecrets.js');
 const dbConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,

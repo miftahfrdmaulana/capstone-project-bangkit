@@ -76,3 +76,4 @@ const predictHandler = async (request, h, myModels) => {
 module.exports = {
 	predictHandler,
 };
+

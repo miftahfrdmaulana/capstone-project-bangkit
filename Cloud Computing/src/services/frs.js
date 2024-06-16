@@ -57,3 +57,5 @@ async function uploadData(pathToStore, data) {
 }
 
 module.exports = { getdata, uploadData };
+
+
