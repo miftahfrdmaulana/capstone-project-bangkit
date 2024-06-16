@@ -49,3 +49,4 @@ async function getInfoSayur(req, res) {
 }
 
 module.exports = { getInfoBuah, getInfoSayur };
+aa
