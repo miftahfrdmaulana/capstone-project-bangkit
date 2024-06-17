@@ -5,10 +5,24 @@ const db = require('./services/db');
 const routes = require('./routes/routes');
 const fs = require('fs');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 
 // Load models from services/models.json
 const myModelsPath = path.resolve(__dirname, 'services/models.json');
 const myModels = JSON.parse(fs.readFileSync(myModelsPath, 'utf-8'));
+
+const validateUser = async (artifacts, request, h) => {
+    try {
+        const results = await db.query('SELECT * FROM users WHERE id = ?', [artifacts.decoded.payload.id]);
+        const user = results[0];
+        if (!user) {
+            return { isValid: false };
+        }
+        return { isValid: true, credentials: { user } };
+    } catch (error) {
+        return { isValid: false };
+    }
+};
 
 const init = async () => {
     const server = Hapi.server({
@@ -21,31 +35,23 @@ const init = async () => {
         },
     });
 
-    await server.register(HapiAuthCookie);
+    await server.register(require('@hapi/jwt'));
 
-    server.auth.strategy('session', 'cookie', {
-        cookie: {
-            name: 'sid',
-            password: process.env.COOKIE_SECRET, // Ensure this is at least 32 characters long
-            isSecure: false, // Should be set to true in production
-            path: '/',
+    server.auth.strategy('jwt', 'jwt', {
+        keys: process.env.JWT_SECRET,
+        verify: {
+            aud: false,
+            iss: false,
+            sub: false,
+            nbf: true,
+            exp: true,
+            maxAgeSec: 14400, // optional
+            timeSkewSec: 15 // optional
         },
-        redirectTo: false,
-        validate: async (request, session) => {
-            try {
-                const results = await db.query('SELECT * FROM users WHERE id = ?', [session.id]);
-                const user = results[0];
-                if (!user) {
-                    return { isValid: false };
-                }
-                return { isValid: true, credentials: { user } };
-            } catch (error) {
-                return { isValid: false };
-            }
-        }
+        validate: validateUser
     });
 
-    server.auth.default('session');
+    server.auth.default('jwt');
 
     // Register routes
     routes(server, myModels);
