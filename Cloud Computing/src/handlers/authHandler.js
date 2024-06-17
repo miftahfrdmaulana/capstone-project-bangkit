@@ -1,6 +1,7 @@
 const { nanoid } = require('nanoid');
 const db = require('../services/db');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 // Sign Up
 async function signup(request, h) {
@@ -40,9 +41,9 @@ async function signin(request, h) {
             return h.response({ status: 'fail', message: 'Invalid Password' }).code(401);
         }
 
-        request.cookieAuth.set({ id: user.id });
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { algorithm: 'HS256', expiresIn: '1h' });
 
-        return h.response({ status: 'success', message: 'Authentication successful' }).code(200);
+        return h.response({ status: 'success', message: 'Authentication successful', token }).code(200);
     } catch (error) {
         return h.response({
             status: 'fail',
@@ -53,7 +54,7 @@ async function signin(request, h) {
 
 // Sign Out
 async function signout(request, h) {
-    request.cookieAuth.clear();
+    // Inform the client to clear the token
     return h.response({ status: 'success', message: 'Logged out successfully' }).code(200);
 }
 
