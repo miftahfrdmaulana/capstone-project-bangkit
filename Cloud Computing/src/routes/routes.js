@@ -21,7 +21,7 @@ const routes = (server, myModels) => {
 		path: "/home/buah/{item}/{penyakit}",
 		handler: getInfoBuah,
 		options: {
-			auth: "session",
+			auth: "jwt",
 		},
 	});
 
@@ -30,7 +30,7 @@ const routes = (server, myModels) => {
 		path: "/home/sayur/{item}/{penyakit}",
 		handler: getInfoSayur,
 		options: {
-			auth: "session",
+			auth: "jwt",
 		},
 	});
 
@@ -64,7 +64,7 @@ const routes = (server, myModels) => {
 		path: "/profile",
 		handler: getUserProfile,
 		options: {
-			auth: "session", // Require authentication for this route
+			auth: "jwt", // Require authentication for this route
 		},
 	});
 
@@ -74,7 +74,7 @@ const routes = (server, myModels) => {
 		path: "/history",
 		handler: getHistory,
 		options: {
-			auth: "session",
+			auth: "jwt",
 		},
 	});
 
@@ -83,7 +83,7 @@ const routes = (server, myModels) => {
 		path: "/history/{id}",
 		handler: getHistoryDetailsId,
 		options: {
-			auth: "session",
+			auth: "jwt",
 		},
 	});
 
@@ -93,7 +93,7 @@ const routes = (server, myModels) => {
 		path: "/predict/{plant}",
 		handler: (request, h) => predictHandler(request, h, myModels),
 		options: {
-			auth: "session", // Ensure authentication
+			auth: "jwt", // Ensure authentication
 			payload: {
 				output: "stream",
 				parse: true,
