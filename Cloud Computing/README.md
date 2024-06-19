@@ -30,102 +30,108 @@ sudo apt-get install build-essential
 --------------------------------------------------------
 ## Methods:
 
-### Register Accout
-1. URL: /register
+### Register User Account (Sign Up)
+1. URL: /signup
 2. Method: POST
 3. Request Body :
-   - username as varchar
-   - email as varchar
-   - password as varchar, must be at least 8 characters, Uppercase, number and special characters
-Response
-```json
-{
-	“error” : false,
-	“message” : “Account registered successfully”
-}
-```
-
-
---------------------------------------------------------------------------------
-## LOGIN
-1. URL: /login
-2. Method: post
-3. Request Body:
-   - usernameORemail as String
-   - password as String
+   - email (string, required): The email address of the user.
+   - username (string, required): The username for the new account.
+   - password (string, required): The password for the new account.
 4. Response
 ```json
 {
-	“error” : “false”,
-	“message” : “Login Succeed”,
-    	“token” : “randomgeneratenumbersandalphabet”
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string"
+        },
+        "message": {
+            "type": "string"
+        }
+    }
+}
+```
+
+--------------------------------------------------------------------------------
+## LOGIN (Sign In)
+1. URL: /signin
+2. Method: POST
+3. Request Body:
+   - email (string, required): The username for signing in.
+   - password (string, required): The password for signing in.
+4. Response
+```json
+{
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string"
+        },
+        "message": {
+            "type": "string"
+        },
+	{
+	"token": {
+            "type": "string"
+	}
+    }
 }
 ```
 
 
 -------------------------------------------------------------------------------------
-##CREATE NOTE
-1. URL : /notes
-2. Methods : post
-3. Headers.authorization
-   - authToken
-4. Request body
-   - image as file ,  pakai form data
-   - title as string
-
-5. Response
+## LOGOUT (Sign Out)
+1. URL : /signout
+2. Methods : POST
+3. Request Headers: Authorization - jwtToken
+4. Response
 ```json
 {
-    "error": false,
-    "message": "Note Created!",
-    "note": {
-        "noteId": "id",
-        "userId": "id",
-        "title": "test dengan postman",
-        "description": "iniadalahtextcobacoba",
-        "imageUrl": "url",
-        "updated": "2023-06-13T06:29:54.418Z"
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string"
+        },
+        "message": {
+            "type": "string"
+        }
     }
+}
+
 ```
 
-    
 ------------------------------------------------------------------------------------------------
-### GetAllNotes
-1. URL : /notes
-2. Methods : get
-3. Headers.authorization
-   - authToken
-4. Response berhasil:
+### Get Profile
+This endpoint retrieves the profile information for a user.
+1. URL : /profile
+2. Methods : GET
+3. Request Headers: Authorization - jwtToken
+4. Response
 ```json
 {
-    "error": false,
-    "message": "All Notes retrieved",
-    "listnote": []
-        {
-            "noteId": "id",
-            "userId": "id",
-            "title": "cobacoba",
-            "description": "iniadalahtextcobacoba",
-            "imageUrl": "url",
-            "updated": "2023-06-12 16:13:04.836"
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "string"
         },
-        {
-            "noteId": "id",
-            "userId": "id",
-            "title": "cobacoba",
-            "description": "iniadalahtextcobacoba",
-            "imageUrl": "url",
-            "updated": "2023-06-12 16:13:15.330"
-        },
-        {
-            "noteId": "id",
-            "userId": "id",
-            "title": "cobacoba",
-            "description": "iniadalahtextcobacoba",
-            "imageUrl": "url",
-            "updated": "2023-06-12 16:13:21.632"
+        "user": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
         }
-    ]
+    }
 }
 ```
 -----------------------------------------------------------------------------------------------------------
