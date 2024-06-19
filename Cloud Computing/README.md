@@ -135,66 +135,76 @@ This endpoint retrieves the profile information for a user.
 }
 ```
 -----------------------------------------------------------------------------------------------------------
-## GetNotesbyId
-1. URL : /notes/:noteId
-2. Methods : get
+## Predict
+1. URL : /predict/{plant}
+2. Methods : POST
 3. Request params
-   - noteId
-4. Request headers authorization
-   - authToken
+   - image (file): The image of the plant to be analyzed.
+4. Request Headers: Authorization - jwtToken
 5. Response
 ```json
 {
-    "error": false,
-    "message": "Note retrieved",
-    "note": {
-        "noteId": "feaf01db-e644-4038-be94-ed8a77efcf8a",
-        "userId": "1",
-        "title": "cobacoba",
-        "description": "iniadalahtextcobacoba",
-        "imageUrl": "url",
-        "updated": "2023-06-12 16:13:04.836"
+  "type": "object",
+  "properties": {
+    "pengobatan": {
+      "type": "string"
+    },
+    "penyakit": {
+      "type": "string"
+    },
+    "nama ilmiah penyakit": {
+      "type": "string"
+    },
+    "tanaman": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
     }
+  }
 }
 ```
 -----------------------------------------------------------------------------------------------------
-### EditNote
-1. URL : /notes/edit/:noteId
-2. Method : post
-3. Request
-   - const { noteId } = req.params
-   - const { title, description } = req.body
-   - const authToken = req.headers.authorization
+### Get Disease Info
+1. URL : /home/{plant}/${types}/${disease}
+2. Method : GET
+3. Request Headers: Authorization - jwtToken
 4. Response
 ```json
 {
-    "error": false,
-    "message": "Note updated!",
-    "updatedNote": {
-        "noteId": "id",
-        "userId": "id",
-        "title": "sudahdiubah",
-        "description": "ini adalah catatan yang sudah diubah",
-        "imageUrl": "url",
-        "updated": "2023-06-13T12:30:44.042Z"
+    "type": "object",
+    "properties": {
+        "pengobatan": {
+            "type": "string"
+        },
+        "penyakit": {
+            "type": "string"
+        },
+        "nama ilmiah penyakit": {
+            "type": "string"
+        },
+        "tanaman": {
+            "type": "string"
+        }
     }
 }
 ```
 ------------------------------------------------------------------------------------
 
 ### DELETE NOTE
-1. URL : /notes/delete/:noteId
-2. Method : delete
-3. Request:
-   - const { noteId } = req.params;
-   - const authToken = req.headers.authorization;
+1. URL : /history
+2. Method : GET
+3. Request Headers: Authorization - jwtToken
 4. Response
-```json
-{
-    "success": true,
-    "message": "Note deleted successfully."
-}
-```
+  * Status: 200
+  * Content-Type: application/json
+
 
 
 
