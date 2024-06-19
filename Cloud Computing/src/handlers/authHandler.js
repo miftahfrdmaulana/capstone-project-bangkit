@@ -43,6 +43,9 @@ async function signin(request, h) {
 
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { algorithm: 'HS256', expiresIn: '1h' });
 
+        // Set the session cookie
+        request.cookieAuth.set({ id: user.id });
+
         return h.response({ status: 'success', message: 'Authentication successful', token }).code(200);
     } catch (error) {
         return h.response({
@@ -54,7 +57,7 @@ async function signin(request, h) {
 
 // Sign Out
 async function signout(request, h) {
-    // Inform the client to clear the token
+    request.cookieAuth.clear();
     return h.response({ status: 'success', message: 'Logged out successfully' }).code(200);
 }
 

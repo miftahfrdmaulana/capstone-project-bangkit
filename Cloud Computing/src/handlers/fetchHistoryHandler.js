@@ -1,20 +1,21 @@
 const { Firestore } = require('@google-cloud/firestore');
 
-async function getHistory (req, h) {
+async function getHistory(req, h) {
     const userId = req.auth.credentials.user.id;
-    const db = new Firestore({
-        projectId: 'testing-capstone-2',
-    });
+    const db = new Firestore();
 
     try {
-        // Mengambil koleksi history untuk userId tertentu
-        const histCollection = await db.collection('users').doc(userId).collection('history').get();
+        const pathToGetHistory = `users/${userId}/history/`;
+        const histCollection = await db.collection(pathToGetHistory)
+                                      .orderBy('createdAt', 'desc')
+                                      .get();
         const historyData = histCollection.docs.map(doc => {
             const data = doc.data();
             return {
                 id: doc.id,
-                namaIlmiahPenyakit: data.namaIlmiahPenyakit,
-                createdAt: data.createdAt
+                namaIlmiahPenyakit: data["nama ilmiah penyakit"],
+                createdAt: data.createdAt,
+                tanaman: data.tanaman
             };
         });
 
@@ -31,15 +32,14 @@ async function getHistory (req, h) {
 }
 
 // Handler to get specific history detail for the logged-in user
-async function getHistoryDetailsId (req, h) {
+async function getHistoryDetailsId(req, h) {
     const userId = req.auth.credentials.user.id; // Get userId from authenticated session
-    const db = new Firestore({
-        projectId: 'testing-capstone-2',
-    });
+    const db = new Firestore();
     const idParam = req.params.id;
+    const pathToGetHistoryId = `users/${userId}/history/${idParam}`;
 
     try {
-        const docRef = db.collection('users').doc(userId).collection('history').doc(idParam);
+        const docRef = db.doc(pathToGetHistoryId);
         const doc = await docRef.get();
 
         if (!doc.exists) {

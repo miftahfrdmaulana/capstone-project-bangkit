@@ -57,6 +57,9 @@ const routes = (server, myModels) => {
 		method: "POST",
 		path: "/signout",
 		handler: signout,
+		options: {
+			auth: "session",
+		},
 	});
 
 	server.route({
