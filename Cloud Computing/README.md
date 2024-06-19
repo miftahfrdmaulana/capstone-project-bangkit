@@ -197,7 +197,7 @@ This endpoint retrieves the profile information for a user.
 ```
 ------------------------------------------------------------------------------------
 
-### DELETE NOTE
+### Get history
 1. URL : /history
 2. Method : GET
 3. Request Headers: Authorization - jwtToken
