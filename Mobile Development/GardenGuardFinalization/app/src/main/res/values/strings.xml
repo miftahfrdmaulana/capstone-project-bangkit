@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">GardenGuard</string>
+    <string name="title_home">Beranda</string>
+    <string name="title_history">Riwayat</string>
+    <string name="title_diagnose">Diagnosa</string>
+    <string name="title_profile">Profil</string>
+    <string name="title_setting">Pengaturan</string>
+    <string name="camera_x">CameraX</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="analyze">Scan Now</string>
+    <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
+    <string name="image_classifier_failed">Image classifier failed to initialize. See error logs for details</string>
+    <string name="result">Hasil Analisis</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="title">Title</string>
+    <string name="published_date">Published Date</string>
+    <string name="save_bookmark">Save Bookmark?</string>
+    <string name="author">Author</string>
+
+    <string name="signup">Sign up</string>
+    <string name="login">Sign in</string>
+    <string name="message_welcome_page">This platform is created to recognize certain diseases in certain plants which will help budding gardeners in their plant cultivation journey.</string>
+    <string name="title_welcome_page">Welcome to GardenGuard!</string>
+    <string name="title_signup_page">Fill out this form</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="logout">Logout</string>
+    <string name="desc_signup">New to GardenGuard? Click below</string>
+    <string name="gambar_login">Gambar Login</string>
+    <string name="gambar_signup">Gambar Signup</string>
+    <string name="gambar_welcome">Gambar Welcome</string>
+
+    <string name="error_label_password">Password tidak boleh kurang dari 8 karakter</string>
+    <string name="error_invalid_email_label">Email Invalid</string>
+
+    <string name="upload">Unggah</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="username">Username</string>
+    <string name="selamat_datang">Selamat Datang</string>
+    <string name="login_berhasil">Anda telah masuk dalam aplikasi GardenGuard</string>
+    <string name="masuk">Masuk</string>
+    <string name="gagal_login">Login Gagal</string>
+    <string name="kembali">Kembali</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="sayur_sayuran">Sayur-sayuran</string>
+    <string name="buah_buahan">Buah-buahan</string>
+    <string name="dapatkan_diagnosis">Dapatkan diagnosis</string>
+    <string name="pindai_masalah">Pindai masalah,</string>
+    <string name="berhasil_daftar">Anda Berhasil Terdaftar</string>
+    <string name="silahkan_login">Silahkan Login kedalam Aplikasi\n</string>
+    <string name="Login">Login\n</string>
+    <string name="Registen_gagal">Gagal Register</string>
+    <string name="list_penyakit_tanaman_apel">List Penyakit Tanaman Apel</string>
+</resources>
